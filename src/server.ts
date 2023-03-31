@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv'
 import express from 'express'
+import { router } from './routes'
 
 dotenv.config()
 
@@ -9,8 +10,6 @@ const port = process.env.PORT
 
 app.use(express.json())
 
-app.get('/', (_req, res) => {
-  res.status(200).json('Hello World!')
-})
+app.use(router)
 
 app.listen(port, () => (console.log(`Server running at port => ${port}`)))

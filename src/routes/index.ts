@@ -1,7 +1,8 @@
 import { Router } from 'express'
+import { routerUser } from './user'
+import { routerTask } from './task'
 
 export const router = Router()
 
-router.get('/', (_req, res) => {
-  res.status(200).json('Hello World!')
-})
+router.use('/task', routerTask)
+router.use('/user', routerUser)

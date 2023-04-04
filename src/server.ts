@@ -1,6 +1,8 @@
 import * as dotenv from 'dotenv'
 import express from 'express'
+
 import { router } from './shared/routes'
+import { connectMongoDB } from './shared/db/conn'
 
 dotenv.config()
 
@@ -12,4 +14,6 @@ app.use(express.json())
 
 app.use(router)
 
-app.listen(port, () => (console.log(`Server running at port => ${port}`)))
+connectMongoDB().then(() => {
+  app.listen(port, () => (console.log(`Server running at port => ${port}`)))
+})

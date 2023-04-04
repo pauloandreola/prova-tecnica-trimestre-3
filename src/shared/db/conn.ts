@@ -5,8 +5,6 @@ dotenv.config()
 
 export async function connectMongoDB () {
   try {
-    mongoose.set('strictQuery', true)
-
     await mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.mn8tn9c.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`)
 
     console.log('MongoDB Altas connected!')

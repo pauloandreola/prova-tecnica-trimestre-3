@@ -9,13 +9,16 @@ export interface ITask extends mongoose.Document {
   updated_at: Date;
 }
 
-const userSchema = new mongoose.Schema({
+const taskSchema = new mongoose.Schema({
   _id: { type: String, required: false },
   title: { type: String, required: true },
   description: { type: String, required: true },
-  done: { type: Boolean, required: false }
+  done: { type: Boolean, required: false },
+  created_at: { type: Date, require: false },
+  updated_at: { type: Date, require: false }
+
 },
 { timestamps: true }
 )
 
-export const UserModel = mongoose.model<ITask>('Task', userSchema)
+export const UserModel = mongoose.model<ITask>('Task', taskSchema)

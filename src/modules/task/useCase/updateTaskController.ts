@@ -10,7 +10,7 @@ export const updateTask = async (req: Request, res: Response) => {
     const test = ObjectId.isValid(id)
     // Verificando se o ObjectID é válido
     if (!test) {
-      return res.status(400).json('Invalid ID!')
+      return res.status(422).json('Invalid ID!')
     }
     const findTask = await TaskModel.findById(id)
     // Verificando se existe o ID no banco

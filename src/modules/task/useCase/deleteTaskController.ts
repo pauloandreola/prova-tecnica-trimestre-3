@@ -12,11 +12,11 @@ export const deleteTask = async (req: Request, res: Response) => {
       return res.status(400).json('Invalid ID!')
     }
     const findTask = await TaskModel.findById(id)
-
+    // Verificando se existe o ID no banco
     if (!findTask) {
       return res.status(404).json('Task not found!')
     }
-
+    // Buscando tarefa pelo ID e deletando a tarefa
     const task: ITask = await TaskModel.findByIdAndDelete(id)
     res.status(200).json({ task, msg: 'Task deleted' })
   } catch (err) {

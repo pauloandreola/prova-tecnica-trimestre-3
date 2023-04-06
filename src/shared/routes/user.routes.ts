@@ -7,10 +7,6 @@ import { refreshTokenUser } from '../../modules/user/useCase/refreshTokenUserCon
 
 export const routerUser = Router()
 
-routerUser.get('/test', function (req, res) {
-  res.status(200).json('Hello world USER')
-})
-
 routerUser.post('/', createUser)
 routerUser.get('/users', getAllUser)
 routerUser.post('/login', loginUser)

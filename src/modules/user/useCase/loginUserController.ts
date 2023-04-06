@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+import { sign } from 'jsonwebtoken'
 import * as dotenv from 'dotenv'
 
 import { UserModel } from '../../entities/user'
@@ -27,9 +27,9 @@ export const loginUser = async (req: Request, res: Response) => {
       return res.status(422).json({ error: 'Invalid credentials' })
     }
     // Cria um token com expiração em
-    const token = jwt.sign({ mail: user.email }, secret, { expiresIn: '1m' })
+    const token = sign({ mail: user.email }, secret, { expiresIn: '1m' })
 
-    const refreshToken = jwt.sign({ userId: user.id }, hashRefreshToken, { expiresIn: '30d' })
+    const refreshToken = sign({ userId: user.id }, hashRefreshToken, { expiresIn: '30d' })
     // Retorna o token para manipulação
     res.status(200).json({ refreshToken, token, user })
   } catch (err) {

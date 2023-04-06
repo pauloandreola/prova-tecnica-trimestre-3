@@ -7,8 +7,8 @@ import { UserModel } from '../../entities/user'
 
 dotenv.config()
 
-const secret = process.env.JWT
-const refreshTokenHash = 'hashRefreshToken'
+const secret = process.env.TOKEN
+const hashRefreshToken = process.env.HASHREFRESHTOKEN
 
 export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body
@@ -22,14 +22,14 @@ export const loginUser = async (req: Request, res: Response) => {
     }
     // Compara se a senha digitada é igual ao que está no banco
     const isPasswordValid = await bcrypt.compare(String(password), user.password)
-    // Cai aqui se a senha não estiver correta
+    // Validação se a senha não estiver correta
     if (!isPasswordValid) {
       return res.status(422).json({ error: 'Invalid credentials' })
     }
-    // Cria um token JWT
-    const token = jwt.sign({ mail: user.email }, secret, { expiresIn: '1d' })
+    // Cria um token com expiração em
+    const token = jwt.sign({ mail: user.email }, secret, { expiresIn: '1m' })
 
-    const refreshToken = jwt.sign({ userId: user.id }, refreshTokenHash, { expiresIn: '30d' })
+    const refreshToken = jwt.sign({ userId: user.id }, hashRefreshToken, { expiresIn: '30d' })
     // Retorna o token para manipulação
     res.status(200).json({ refreshToken, token, user })
   } catch (err) {

@@ -3,7 +3,7 @@ import { Router } from 'express'
 import { createUser } from '../../modules/user/useCase/createUserController'
 import { getAllUser } from '../../modules/user/useCase/getAllUserController'
 import { loginUser } from '../../modules/user/useCase/loginUserController'
-import { refreshUser } from '../../modules/user/useCase/refreshUserController'
+import { refreshTokenUser } from '../../modules/user/useCase/refreshTokenUserController'
 
 export const routerUser = Router()
 
@@ -14,4 +14,4 @@ routerUser.get('/test', function (req, res) {
 routerUser.post('/', createUser)
 routerUser.get('/users', getAllUser)
 routerUser.post('/login', loginUser)
-routerUser.get('/refresh', refreshUser)
+routerUser.get('/refreshtoken', refreshTokenUser)

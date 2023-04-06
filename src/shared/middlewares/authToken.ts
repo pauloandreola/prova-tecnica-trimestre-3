@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Request, Response, NextFunction } from 'express'
 import { verify } from 'jsonwebtoken'
 import * as dotenv from 'dotenv'
@@ -8,7 +7,7 @@ import { UserModel } from '../../modules/entities/user'
 dotenv.config()
 
 const secret = process.env.TOKEN
-const newSecret = process.env.REFRESHTOKEN
+// const newSecret = process.env.REFRESHTOKEN
 
 export async function authToken (req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization

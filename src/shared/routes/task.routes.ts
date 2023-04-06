@@ -11,10 +11,6 @@ import { authToken } from '../middlewares/authToken'
 
 export const routerTask = Router()
 
-routerTask.get('/test', function (req, res) {
-  res.status(200).json('Hello world TASK')
-})
-
 routerTask.post('/', authToken, createTask)
 routerTask.delete('/:id', authToken, deleteTask)
 routerTask.get('/tasks', authToken, getAllTask)

@@ -18,8 +18,8 @@ export const updateTask = async (req: Request, res: Response) => {
       return res.status(404).json('Task not found!')
     }
     // Buscando tarefa pelo ID e atualizando os campos da tarefa
-    const newTask = { title, description, done }
-    const updatedTask: ITask = await TaskModel.findByIdAndUpdate(id, newTask)
+    const updateTask = { title, description, done }
+    const updatedTask: ITask = await TaskModel.findByIdAndUpdate(id, updateTask)
     res.status(200).json({ updatedTask, msg: 'Task updated!' })
   } catch (err) {
     console.error(err)

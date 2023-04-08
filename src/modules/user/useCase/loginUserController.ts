@@ -10,6 +10,9 @@ dotenv.config()
 const tokenSecret = process.env.TOKEN
 const refreshTokenSecret = process.env.REFRESHTOKEN
 
+const expireToken = '1m'
+const expireRefreshToken = '30d'
+
 export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body
 
@@ -27,9 +30,9 @@ export const loginUser = async (req: Request, res: Response) => {
       return res.status(422).json({ error: 'Invalid credentials' })
     }
     // Cria um token com expiração em 1 minuto
-    const token = sign({ userId: user.id, email: user.email }, tokenSecret, { expiresIn: '1m' })
+    const token = sign({ userId: user.id, email: user.email }, tokenSecret, { expiresIn: expireToken })
     // Cria um token com expiração em 30 dias
-    const refreshToken = sign({ userId: user.id, email: user.email }, refreshTokenSecret, { expiresIn: '30d' })
+    const refreshToken = sign({ userId: user.id, email: user.email }, refreshTokenSecret, { expiresIn: expireRefreshToken })
     //  Desestrutura o refresh token para armazenar no banco
     const refreshTokenTemp = { refreshToken }
     //  Método de atualização no banco somente do refresh token

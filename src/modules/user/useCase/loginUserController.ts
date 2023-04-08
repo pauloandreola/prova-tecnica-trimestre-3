@@ -7,8 +7,8 @@ import { UserModel } from '../../entities/user'
 
 dotenv.config()
 
-const secret = process.env.TOKEN
-const hashRefreshToken = process.env.HASHREFRESHTOKEN
+const tokenSecret = process.env.TOKEN
+const refreshTokenSecret = process.env.REFRESHTOKEN
 
 export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body
@@ -26,12 +26,16 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!isPasswordValid) {
       return res.status(422).json({ error: 'Invalid credentials' })
     }
-    // Cria um token com expiração em
-    const token = sign({ mail: user.email }, secret, { expiresIn: '1m' })
+    // Cria um token com expiração em 1 minuto
+    const token = sign({ email: user.email, userId: user.id }, tokenSecret, { expiresIn: '1m' })
+    // Cria um token com expiração em 30 dias
+    const refreshToken = sign({ email: user.email, userId: user.id }, refreshTokenSecret, { expiresIn: '30d' })
+    //  Desestrutura o refresh token para armazenar no banco
+    const refreshTokenTemp = { refreshToken }
+    //  Método de atualização no banco somente do refresh token
+    await UserModel.findByIdAndUpdate(user.id, refreshTokenTemp)
 
-    const refreshToken = sign({ userId: user.id }, hashRefreshToken, { expiresIn: '30d' })
-    // Retorna o token para manipulação
-    res.status(200).json({ refreshToken, token, user })
+    res.status(200).json({ token, user, refreshToken })
   } catch (err) {
     res.status(500).json('Something is wrong verify your login')
   }

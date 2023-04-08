@@ -9,11 +9,11 @@ export const getTask = async (req: Request, res: Response) => {
     const test = ObjectId.isValid(id)
     // Verificando se o ObjectID é válido
     if (!test) {
-      return res.status(400).json('Invalid ID!')
+      return res.status(422).json('Invalid ID!')
     }
     // Buscando a tarefa pelo ID e mostrando na tela
     const task: ITask = await TaskModel.findById(id)
-    res.status(200).json({ task, msg: 'Task founded!' })
+    res.status(200).json({ task })
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: err.message })

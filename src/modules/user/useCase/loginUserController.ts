@@ -33,7 +33,7 @@ export const loginUser = async (req: Request, res: Response) => {
     const token = sign({ userId: user.id, email: user.email }, tokenSecret, { expiresIn: expireToken })
     // Cria um token com expiração conforme tempo definido na variável expireRefreshToken
     const refreshToken = sign({ userId: user.id, email: user.email }, refreshTokenSecret, { expiresIn: expireRefreshToken })
-    //  Método de atualização no banco somente do refresh token
+    //  Método de atualização no banco do refresh token
     await UserModel.findByIdAndUpdate(user.id, { refreshToken })
 
     res.status(200).json({ token, user, refreshToken })

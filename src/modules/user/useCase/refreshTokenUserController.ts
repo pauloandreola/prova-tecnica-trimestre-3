@@ -13,11 +13,15 @@ export const refreshTokenUser = async (req: Request, res: Response) => {
   if (!newRefreshToken) {
     return res.status(404).json('Token not found!')
   }
-
-  const user = verify(newRefreshToken, refreshTokenSecret)
-  const id = UserModel.findById(user)
-  if (!id) {
+  // Verificar as informações contidas no refresh token
+  const data = verify(newRefreshToken, refreshTokenSecret)
+  if (!data) {
     return res.status(401).json('Invalid user!')
   }
-  console.log('USER******', user)
+  const { userId } = data as any
+  // Verificar se existe o ID do usuário no banco
+  const findUser = await UserModel.findById(userId)
+  if (!findUser) {
+    return res.status(404).json('User not found!')
+  }
 }

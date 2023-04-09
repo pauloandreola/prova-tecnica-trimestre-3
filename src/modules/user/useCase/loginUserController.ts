@@ -29,14 +29,12 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!isPasswordValid) {
       return res.status(422).json({ error: 'Invalid credentials' })
     }
-    // Cria um token com expiração em 1 minuto
+    // Cria um token com expiração conforme tempo definido na variável expireToken
     const token = sign({ userId: user.id, email: user.email }, tokenSecret, { expiresIn: expireToken })
-    // Cria um token com expiração em 30 dias
+    // Cria um token com expiração conforme tempo definido na variável expireRefreshToken
     const refreshToken = sign({ userId: user.id, email: user.email }, refreshTokenSecret, { expiresIn: expireRefreshToken })
-    //  Desestrutura o refresh token para armazenar no banco
-    const refreshTokenTemp = { refreshToken }
     //  Método de atualização no banco somente do refresh token
-    await UserModel.findByIdAndUpdate(user.id, refreshTokenTemp)
+    await UserModel.findByIdAndUpdate(user.id, { refreshToken })
 
     res.status(200).json({ token, user, refreshToken })
   } catch (err) {

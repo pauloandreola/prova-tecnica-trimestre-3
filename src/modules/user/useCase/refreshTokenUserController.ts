@@ -11,7 +11,7 @@ const refreshTokenSecret = process.env.REFRESHTOKEN
 const expireRefreshToken = '30d'
 
 export const refreshTokenUser = async (req: Request, res: Response) => {
-  const { newRefreshToken } = req.body || req.query.token || req.headers['X-access-token']
+  const { newRefreshToken } = req.body.token || req.query.token || req.headers['X-access-token']
   if (!newRefreshToken) {
     return res.status(404).json('Token not found!')
   }

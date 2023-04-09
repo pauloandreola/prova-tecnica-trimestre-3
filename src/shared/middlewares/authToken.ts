@@ -9,8 +9,8 @@ dotenv.config()
 const secret = process.env.TOKEN
 
 export async function authToken (req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers.authorization
-  const token = authHeader?.split(' ')[1]
+  const authToken = req.headers.authorization
+  const token = authToken?.split(' ')[1]
   if (!token) {
     return res.status(404).json('Token not found!')
   }

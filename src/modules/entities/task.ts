@@ -4,14 +4,14 @@ export interface ITask extends Document {
   title: string;
   description?: string;
   done: boolean;
-  userId?: string;
+  userId: string;
 }
 
 const taskSchema = new Schema<ITask>({
   title: { type: String, required: true },
   description: { type: String, required: true },
   done: { type: Boolean, default: false },
-  userId: { type: String, required: true }
+  userId: { type: String, ref: 'User', required: true }
 },
 { timestamps: true }
 )

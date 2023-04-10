@@ -18,7 +18,7 @@ export const refreshTokenUser = async (req: Request, res: Response) => {
   // Verificar as informações contidas no refresh token
   const data = verify(newRefreshToken, refreshTokenSecret)
   if (!data) {
-    return res.status(401).json('Invalid user!')
+    return res.status(422).json('Invalid user!')
   }
 
   const { userId, email } = data as any

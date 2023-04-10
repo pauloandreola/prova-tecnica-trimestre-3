@@ -12,7 +12,6 @@ const taskSchema = new Schema<ITask>({
   description: { type: String, required: true },
   done: { type: Boolean, default: false },
   userId: { type: String, required: true }
-
 },
 { timestamps: true }
 )

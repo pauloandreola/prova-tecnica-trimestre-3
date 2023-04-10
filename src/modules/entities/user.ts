@@ -8,7 +8,7 @@ export interface IUser extends Document {
   refreshToken?: string;
 }
 
-const userSchema = new Schema({
+const userSchema = new Schema<IUser>({
   name: { type: String, required: true },
   email: { type: String, required: true, lowercase: true, unique: true },
   password: { type: String, required: true },

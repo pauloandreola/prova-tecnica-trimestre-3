@@ -10,7 +10,7 @@ dotenv.config()
 const tokenSecret = process.env.TOKEN
 const refreshTokenSecret = process.env.REFRESHTOKEN
 
-const expireToken = '1m'
+const expireToken = '10m'
 const expireRefreshToken = '30d'
 
 export const loginUser = async (req: Request, res: Response) => {

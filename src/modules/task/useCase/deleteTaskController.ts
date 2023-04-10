@@ -6,13 +6,13 @@ import { TaskModel, ITask } from '../../entities/task'
 export const deleteTask = async (req: Request, res: Response) => {
   const id = req.params.id
   try {
-    const test = ObjectId.isValid(id)
     // Verificando se o ObjectID é válido
+    const test = ObjectId.isValid(id)
     if (!test) {
       return res.status(422).json('Invalid ID!')
     }
-    const findTask = await TaskModel.findById(id)
     // Verificando se existe o ID no banco
+    const findTask = await TaskModel.findById(id)
     if (!findTask) {
       return res.status(404).json('Task not found!')
     }

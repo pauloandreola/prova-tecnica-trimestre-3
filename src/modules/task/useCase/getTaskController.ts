@@ -6,8 +6,8 @@ import { TaskModel, ITask } from '../../entities/task'
 export const getTask = async (req: Request, res: Response) => {
   const id = req.params.id
   try {
-    const test = ObjectId.isValid(id)
     // Verificando se o ObjectID é válido
+    const test = ObjectId.isValid(id)
     if (!test) {
       return res.status(422).json('Invalid ID!')
     }

@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { TaskModel, ITask } from '../../entities/task'
 import { ObjectId } from 'mongodb'
 
-export const getTaskFilter = async (req: Request, res: Response) => {
+export const listTaskFilter = async (req: Request, res: Response) => {
   const { userId, title, done } = req.body
   try {
     // Verificando se o ObjectID é válido

@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb'
 
 import { TaskModel, ITask } from '../../entities/task'
 //  Método para buscar uma tarefa pelo ID
-export const getTask = async (req: Request, res: Response) => {
+export const listTask = async (req: Request, res: Response) => {
   const id = req.params.id
   try {
     // Verificando se o ObjectID é válido

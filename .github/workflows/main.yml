@@ -1,11 +1,11 @@
-name: GitHub Actions da Prova Técnica Trimestre 4
+name: GitHub Actions Apptasks-Postgres 
 
 on:
   push:
     branches: ["*"]
 
 jobs:
-  build01:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,4 +14,4 @@ jobs:
           node-version: 16
       - run: npm ci
       - run: npm run test
-      
+   
